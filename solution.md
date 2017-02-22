@@ -1,63 +1,39 @@
-```zsh
-# Clone the initial repository
-git clone git@github.com:eerwitt/command-line-mystery.git
-cd command-line-mystery
-
-# Check the status to see if anything is already marked as new (shouldn't be)
-git status
-
-# Edit my solution file
-subl solution.md
-
-# Commit initial solution
-git add solution.md
-git commit -a
-
-# Start reading the instructions
-less instructions
-
-# Check for clues in the mystery
 cd mystery
-grep CLUE ./crimescene
+ls
+cat crimescene
+grep -C 4 "CLUE" crimescene
+cat interviews/*
+cd memberships
+ls
+cat AAA
+cat AAdvantage
+cat Delta_Skymiles
+cat Museum_of_Bash_History
+grep -c "" AAA
+grep -c "" Delta_Skymiles
+grep -f AAA Delta_Skymiles > matching_names
+grep -c "" matching_names
+grep -f matching_names Museum_of_Bash_History
+grep -f matching_names Museum_of_Bash_History > new_matching_names
+grep -f new_matching_names Terminal_City_Library > newer_matching_names
+grep -c "" newer_matching_names
+cd ..
+grep "Annabel" people
+cd streets
+head -n 40 Mattapan_Street | tail -n -1
+head -n 173 Hart_Place | tail -n -1
+head -n 179 Buckingham_Place | tail -n -1
+cd ..
+cat interviews/interview-699607
+grep -A 5 "L337..9" vehicles
+grep -A 5 "L337..9" vehicles | grep -A 4 "Make: Honda" | grep -A 3 "Color: Blue" | grep "Owner:" > even_more_names
+sed 's/Owner: //' even_more_names > most_names
+grep -f most_names memberships/newer_matching_names > final_name_list
+rm most_names
+rm even_more_names
+rm memberships/matching_names
+rm memberships/new_matching_names
+rm memberships/newer_matching_names
+grep -f final_name_list people
+#Shooter is Jeremy Bowers, since Jacqui is a woman.
 
-# Search for person with the Latte
-grep Annabel ./people
-
-# Knock on her door
-less streets/Mattapan_Street
-# Goto line in file using less: http://stackoverflow.com/questions/8586648/going-to-a-specific-line-number-using-less-in-unix
-# in less type 173g
-# Try different interviews
-less interviews/interview-47246024
-
-less interviews/interview-699607
-
-# Checking for vehicle
-less vehicles
-# Search in less for vehicles starting with L337 and ending in 9
-# in less /L337..9
-# Check which are over 6'
-# Katie Park
-# Mike Bostock
-# John Keefe
-# Erika Owens
-# Matt Waite
-# Brian Boyer
-# Al Shaw
-# Miranda Mulligan
-# Joe Germuska
-# Jeremy Bowers
-# Jacqui Maher
-
-# Check which is male/female and get their names
-egrep '((Katie Park)|(Mike Bostock)|(John Keefe)|(Erika Owens)|(Matt Waite)|(Brian Boyer)|(Al Shaw)|(Miranda Mulligan)|(Joe Germuska)|(Jeremy Bowers)|(Jacqui Maher))' ./people | grep '\tM\t' | cut -f1
-
-# Limit down by membership
-egrep -R '((Joe Germuska)|(Brian Boyer)|(Mike Bostock)|(Jeremy Bowers)|(John Keefe)|(Al Shaw)|(Matt Waite))' ./memberships
-
-# (Jeremy Bowers)|(Brian Boyer)|(Mike Bostock)|(Matt Waite)
-# Not MB, wrong car color
-# Not MW, wrong car manufacturer
-# Not BB, wrong car manufacturer
-# JB, it is JB
-```
